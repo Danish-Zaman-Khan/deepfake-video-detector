@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+venv/
+.venv/
+env/
+.env
+*.env
+
+# Django
+db.sqlite3
+
+# Uploaded videos
+media/
+*.pth
+*.pt
+
+# ML datasets
+dataset/
+datasets/
+
+# Model files
+*.pth
+*.pt
+*.onnx
+*.h5
+
+# Jupyter
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store
+
+# Environment variables
+.env
+
+# IDE
+.vscode/
+.idea/

@@ -1,0 +1,63 @@
+body {
+    background: #f8f9fa;
+}
+
+
+.hero-section {
+    padding: 90px 0 70px;
+}
+
+
+.upload-card {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.08);
+}
+
+
+.upload-area {
+    border: 2px dashed #ced4da;
+    border-radius: 15px;
+
+    padding: 45px 25px;
+
+    text-align: center;
+
+    transition: 0.2s;
+}
+
+
+.upload-area:hover {
+    border-color: #0d6efd;
+    background: #f8fbff;
+}
+
+
+.upload-icon {
+    font-size: 50px;
+    margin-bottom: 15px;
+}
+
+
+.feature-card {
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 16px;
+
+    height: 100%;
+
+    box-shadow:
+        0 5px 25px rgba(0, 0, 0, 0.05);
+}
+
+
+.feature-icon {
+    font-size: 35px;
+
+    margin-bottom: 15px;
+}
