@@ -39,3 +39,6 @@ datasets/
 # IDE
 .vscode/
 .idea/
+
+# Test Files to check code
+test_*.py
