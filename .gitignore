@@ -42,3 +42,7 @@ datasets/
 
 # Test Files to check code
 test_*.py
+
+
+# Ignoring .pth file for now
+*.pth
