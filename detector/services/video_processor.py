@@ -1,40 +1,23 @@
-import cv2
+import os
+from .predictor import predict_face
 
+def process_video_faces(face_image_paths):
+    """
+    Passes extracted face crops through the predictor and computes an overall score.
+    """
+    if not face_image_paths:
+        return {'is_fake': False, 'average_confidence': 0.0, 'processed_faces': 0}
 
-def extract_frames(video_path, num_frames=16):
+    results = []
+    for face_path in face_image_paths:
+        res = predict_face(face_path)
+        results.append(res['confidence'])
 
-    capture = cv2.VideoCapture(video_path)
-
-    if not capture.isOpened():
-        raise ValueError("Unable to open video.")
-
-    total_frames = int(
-        capture.get(cv2.CAP_PROP_FRAME_COUNT)
-    )
-
-    if total_frames == 0:
-        capture.release()
-        raise ValueError("Video contains no frames.")
-
-    frame_indices = [
-        int(i * total_frames / num_frames)
-        for i in range(num_frames)
-    ]
-
-    frames = []
-
-    for index in frame_indices:
-
-        capture.set(
-            cv2.CAP_PROP_POS_FRAMES,
-            index
-        )
-
-        success, frame = capture.read()
-
-        if success:
-            frames.append(frame)
-
-    capture.release()
-
-    return frames
+    # Calculate overall confidence across all face crops
+    avg_confidence = sum(results) / len(results)
+    
+    return {
+        'is_fake': avg_confidence > 0.5,
+        'average_confidence': round(avg_confidence, 4),
+        'processed_faces': len(results)
+    }

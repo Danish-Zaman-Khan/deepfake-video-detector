@@ -1,29 +1,25 @@
-
-'''
-This is just a placeholder code till I get the trained model added into the ml_model folder
-'''
-
+import os
 import torch
-import torch.nn as nn
-from torchvision.models import efficientnet_b0
+import torchvision.models as models
+from django.conf import settings
 
-MODEL_PATH = "ml_models/deepguard_efficientnet_b0.pth"
+_model = None
 
-
-def load_model():
-
-    model = efficientnet_b0(weights=None)
-
-    # Change classifier for 2 classes
-    model.classifier[1] = nn.Linear(
-        model.classifier[1].in_features,
-        2
-    )
-
-    model.load_state_dict(
-        torch.load(MODEL_PATH, map_location="cpu")
-    )
-
-    model.eval()
-
-    return model
+def get_model():
+    global _model
+    if _model is None:
+        model_path = os.path.join(settings.BASE_DIR, 'ml_model', 'resnet50_best.pth')
+        
+        # Instantiate ResNet50 base
+        _model = models.resnet50(weights=None)
+        
+        # Match checkpoint shape: 1 output neuron instead of 2
+        num_ftrs = _model.fc.in_features
+        _model.fc = torch.nn.Linear(num_ftrs, 1)
+        
+        # Load checkpoint
+        state_dict = torch.load(model_path, map_location=torch.device('cpu'))
+        _model.load_state_dict(state_dict)
+        _model.eval()
+        
+    return _model
